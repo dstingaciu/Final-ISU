@@ -1,34 +1,41 @@
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 
 import javax.swing.*;
-public class DataGUI {
+public class DataGUI extends JPanel {
 		JFrame frame;
 		JLabel blah;
-		JPanel panel,menu;
+		int x,y;
+		DataGUI link = new DataGUI(); 
 		public DataGUI(){
 
 			frame=new JFrame("Poker");
 			
-			panel=new JPanel();
-			panel.setLayout(new GridBagLayout());
-			frame.setContentPane(panel);
-			panel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-			
-			
 			frame.getContentPane().setBackground(Color.gray);
-			frame.setContentPane(panel);
 			frame.pack();
 			frame.setVisible(true);
 			frame.setSize(1280,1024);
-			
-			JButton add=new JButton("Add");
-			JButton remove=new JButton("Remove");
-			JButton exit=new JButton("Exit");
-			panel.add(add);
-			panel.add(remove);
-			panel.add(exit);
-
+			frame.add(link);
+			frame.addMouseListener(new Mouse());
+			frame.addMouseMotionListener(new Mouse());
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+		public void getXY(int a,int b){
+			x=a;
+			y=b;
+		}
+		
+		class surface extends JPanel{
+		
+			public void paint(Graphics g){
+				Graphics2D g2d = (Graphics2D) g;
+				g2d.drawOval(x, y, 300, 300);
+			}
+			public void paintComponent(Graphics g){
+				super.paintComponent(g);
+				paint(g);
+			}
 		}
 }

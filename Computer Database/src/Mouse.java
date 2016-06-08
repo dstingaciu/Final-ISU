@@ -7,6 +7,10 @@ public class Mouse implements MouseListener, MouseMotionListener{
 	DataGUI gui=new DataGUI();
 	int x=0,y=0;
 	public void mouseDragged(MouseEvent e) {
+		if(e.getX()<=(gui.returnX()+640)&&e.getY()<=(gui.returnY()+150)&&e.getY()+150<1024){
+			y=e.getY();
+			gui.getXY(x, y);
+		}
 
 		
 	}
@@ -17,9 +21,8 @@ public class Mouse implements MouseListener, MouseMotionListener{
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		x++;
-		y++;
-		gui.getXY(x, y);
+
+
 	}
 
 	public void mouseEntered(MouseEvent e) {

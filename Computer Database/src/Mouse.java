@@ -5,12 +5,13 @@ import java.awt.event.MouseMotionListener;
 
 public class Mouse implements MouseListener, MouseMotionListener{
 	DataGUI gui=new DataGUI();
-	int x=0,y=0;
+	int y=0;
 	public void mouseDragged(MouseEvent e) {
-		if(e.getX()<=(gui.returnX()+640)&&e.getY()<=(gui.returnY()+150)&&e.getY()+150<1024){
+		if(gui.returnY()+150<=1024&&gui.returnY()>=0&&e.getY()+150<=1024&&e.getY()<=(gui.returnY()+150)){
 			y=e.getY();
-			gui.getXY(x, y);
+			gui.getXY(y);
 		}
+		System.out.println("Mouse: "+(gui.returnY()+150));
 
 		
 	}

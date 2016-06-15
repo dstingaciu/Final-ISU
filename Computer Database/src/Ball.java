@@ -35,6 +35,7 @@ public class Ball {
 	}
 	
 	public void main() throws InterruptedException{
+		if(gui.returnGS()){
 		direction=(int)(Math.random()*4+1);
 		if(direction==1)
 			dR();
@@ -48,9 +49,11 @@ public class Ball {
 		gui.getDY(dy);
 		int n=3;
 		do{
+			if(gui.returnGS()){
 			n=hitDetection();
+			}
 		}while(n>2);
-		if(n==2){
+		if(n==2)
 			gui.setWinner1();
 		}else{
 			gui.setWinner2();
@@ -59,6 +62,7 @@ public class Ball {
 	}
 	//Send x and y coordinates back to gui
 	public int hitDetection() throws InterruptedException{
+		if(gui.returnGS()){
 		Thread.sleep(3);
 
 		if(dx<=0){
@@ -97,22 +101,22 @@ public class Ball {
 			gui.getDX(dx);
 			gui.getDY(dy);
 			
-		}else if(direction==1&&(dx==gui.returnAX()-30&&dy>gui.returnAY()&&dy<gui.returnAY()+150)){
+		}else if(direction==1&&(dx>=gui.returnAX()-30&&dy>gui.returnAY()&&dy<gui.returnAY()+150)){
 			direction=2;
 			dL();
 			gui.getDX(dx);
 			gui.getDY(dy);
-		}else if(direction==2&&(dx==gui.returnX()+30&&dy>gui.returnY()&&dy<gui.returnY()+150)){
+		}else if(direction==2&&(dx<=gui.returnX()+30&&dy>gui.returnY()&&dy<gui.returnY()+150)){
 			direction=1;
 			dR();
 			gui.getDX(dx);
 			gui.getDY(dy);
-		}else if(direction==3&&(dx==gui.returnAX()-30&&dy>gui.returnAY()&&dy<gui.returnAY()+150)){
+		}else if(direction==3&&(dx>=gui.returnAX()-30&&dy>gui.returnAY()&&dy<gui.returnAY()+150)){
 			direction=4;
 			uL();
 			gui.getDX(dx);
 			gui.getDY(dy);
-		}else if (direction==4&&(dx==gui.returnX()+30&&dy>gui.returnY()&&dy<gui.returnY()+150)){
+		}else if (direction==4&&(dx<=gui.returnX()+30&&dy>gui.returnY()&&dy<gui.returnY()+150)){
 			direction=3;
 			uR();
 			gui.getDX(dx);
@@ -137,6 +141,9 @@ public class Ball {
 			gui.getDY(dy);
 		}
 		return 3;
+		}
+		return 3;
 	}
+		
 		
 }

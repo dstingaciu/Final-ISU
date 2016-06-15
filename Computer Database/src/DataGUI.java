@@ -2,15 +2,24 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.*;
 public class DataGUI extends JComponent{
 		static JFrame frame;
 		static JLabel blah;
+		static JPanel menu=new JPanel();
 		static int x,y,maxx=900,maxy=600,ax=maxx-30,ay,p1=0,p2=0,dx=maxx/2,dy=maxy/2;
 		static DataGUI link = new DataGUI(); 
-		static String winner=" ";
+		static String P1winner="Player 1 has clinched the match to make it "+p1+" to "+p2,P2Winner="Player 2 has clinched the match to make it "+p2+" to "+p1;
 		static Ball ball=new Ball(dx,dy,maxx,maxy);
+		static String winner=" ";
+		public boolean gamestate=true;
+		HighScores hs=new HighScores();
+
+
 		public static void main(String[]args) throws InterruptedException{
 			/*Scanner input=new Scanner(System.in);
 			System.out.println("Enter X Resolution: ");
@@ -19,6 +28,8 @@ public class DataGUI extends JComponent{
 			int maxy=input.nextInt();
 			input.close();
 			*/
+			
+			
 			frame=new JFrame("Pong");
 			frame.setUndecorated(true);
 			frame.setSize(maxx,maxy);
@@ -30,9 +41,10 @@ public class DataGUI extends JComponent{
 			frame.getContentPane().setBackground(Color.black);
 			frame.setVisible(true);
 			ball.main();
-
+			
 
 		}
+		
 		public void getXY(int b){
 			y=b;
 			link.repaint();
@@ -40,6 +52,12 @@ public class DataGUI extends JComponent{
 		public void getDX(int a){
 			dx=a;
 			link.repaint();
+		}
+		public boolean returnGS(){
+			return gamestate;
+		}
+		public void setGS(boolean x){
+			gamestate=x;
 		}
 		public void getDY(int b){
 			dy=b;
@@ -99,6 +117,26 @@ public class DataGUI extends JComponent{
 			ball.main();
 		}
 		
+		public void writeRoundsP1() throws IOException{
+
+			hs.HighScore(P1winner);
+		}
+		
+		public void writeRoundsP2() throws IOException{
+			hs.HighScore(P2Winner);
+		}
+		
+		public void finalScore() throws IOException{
+			if(p1>p2){
+				hs.HighScore("The final score is "+p1+" to "+p2+" for player one");
+				hs.HighScore("===========================END OF SESSION===========================");
+			}else{
+				hs.HighScore("The final score is "+p1+" to "+p2+" for player two");
+				hs.HighScore("===========================END OF SESSION===========================");
+			}
+				
+		}
+		
 		public void paint(Graphics g){
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.setColor(Color.white);
@@ -113,6 +151,25 @@ public class DataGUI extends JComponent{
 			g2d.fillOval(dx, dy, 25, 25);
 			g2d.setFont(new Font("Arial",Font.PLAIN,50));
 			g2d.drawString(winner, maxx/2, maxy/2);
+		}
+		
+		class PlayAgainButton implements ActionListener{
+
+			public void actionPerformed(ActionEvent event) {
+				frame.getContentPane().removeAll();
+				link.repaint();
+				frame.revalidate();
+				
+			}
+			
+		}
+		class ExitEvent implements ActionListener{
+
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+				
+			}
+			
 		}
 		
 }

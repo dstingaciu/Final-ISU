@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 
 public class Ball {
 	
@@ -34,8 +36,7 @@ public class Ball {
 		return dy;
 	}
 	
-	public void main() throws InterruptedException{
-		if(gui.returnGS()){
+	public void main() throws InterruptedException, IOException{
 		direction=(int)(Math.random()*4+1);
 		if(direction==1)
 			dR();
@@ -50,10 +51,10 @@ public class Ball {
 		int n=3;
 		do{
 			if(gui.returnGS()){
-			n=hitDetection();
+				n=hitDetection();
 			}
 		}while(n>2);
-		if(n==2)
+		if(n==2){
 			gui.setWinner1();
 		}else{
 			gui.setWinner2();
@@ -62,9 +63,7 @@ public class Ball {
 	}
 	//Send x and y coordinates back to gui
 	public int hitDetection() throws InterruptedException{
-		if(gui.returnGS()){
 		Thread.sleep(3);
-
 		if(dx<=0){
 			p2++;
 			gui.setP2(p2);
@@ -139,8 +138,6 @@ public class Ball {
 			uL();
 			gui.getDX(dx);
 			gui.getDY(dy);
-		}
-		return 3;
 		}
 		return 3;
 	}

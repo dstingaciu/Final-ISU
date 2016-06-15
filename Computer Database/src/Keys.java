@@ -1,5 +1,6 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 
 public class Keys implements KeyListener {
@@ -15,10 +16,10 @@ public class Keys implements KeyListener {
 		if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
 			System.exit(0);
 		}
-		if(e.getKeyCode()==KeyEvent.VK_P&&gui.gamestate){
+		if(e.getKeyCode()==KeyEvent.VK_P&&gui.returnGS()){
 			gui.setGS(false);
 			System.out.println("False");
-		}else if(e.getKeyCode()==KeyEvent.VK_P&&gui.gamestate==false){
+		}else if(e.getKeyCode()==KeyEvent.VK_P&&gui.returnGS()==false){
 			gui.setGS(true);
 			System.out.println("True");
 		}

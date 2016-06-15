@@ -16,11 +16,11 @@ public class DataGUI extends JComponent{
 		static String P1winner="Player 1 has clinched the match to make it "+p1+" to "+p2,P2Winner="Player 2 has clinched the match to make it "+p2+" to "+p1;
 		static Ball ball=new Ball(dx,dy,maxx,maxy);
 		static String winner=" ";
-		public boolean gamestate=true;
+		static boolean gamestate;
 		HighScores hs=new HighScores();
 
 
-		public static void main(String[]args) throws InterruptedException{
+		public static void main(String[]args) throws InterruptedException, IOException{
 			/*Scanner input=new Scanner(System.in);
 			System.out.println("Enter X Resolution: ");
 			int maxx=input.nextInt();
@@ -29,7 +29,7 @@ public class DataGUI extends JComponent{
 			input.close();
 			*/
 			
-			
+			gamestate=true;
 			frame=new JFrame("Pong");
 			frame.setUndecorated(true);
 			frame.setSize(maxx,maxy);
@@ -55,6 +55,7 @@ public class DataGUI extends JComponent{
 		}
 		public boolean returnGS(){
 			return gamestate;
+
 		}
 		public void setGS(boolean x){
 			gamestate=x;
@@ -100,16 +101,18 @@ public class DataGUI extends JComponent{
 			p2=b;
 			link.repaint();
 		}
-		public void setWinner1() throws InterruptedException{
+		public void setWinner1() throws InterruptedException, IOException{
 			winner="Player 1 Wins";
+			writeRoundsP1();
 			link.repaint();
 			Thread.sleep(1000);
 			winner="";
 			link.repaint();
 			ball.main();
 		}
-		public void setWinner2() throws InterruptedException{
+		public void setWinner2() throws InterruptedException, IOException{
 			winner="Player 2 Wins";
+			writeRoundsP2();
 			link.repaint();
 			Thread.sleep(1000);
 			winner="";
@@ -118,7 +121,6 @@ public class DataGUI extends JComponent{
 		}
 		
 		public void writeRoundsP1() throws IOException{
-
 			hs.HighScore(P1winner);
 		}
 		
@@ -139,18 +141,18 @@ public class DataGUI extends JComponent{
 		
 		public void paint(Graphics g){
 			Graphics2D g2d = (Graphics2D) g;
-			g2d.setColor(Color.white);
-			g2d.drawLine(maxx/2, 0, maxx/2, maxy);
-			g2d.fillRect(x, y, 30, 150);
-			g2d.fillRect(ax, ay, 30, 150);
-			g2d.setFont(new Font("Arial",Font.PLAIN,200));
-			String p1S=Integer.toString(p1);
-			String p2S=Integer.toString(p2);
-			g2d.drawString(p1S,(maxx/2)-150,150);
-			g2d.drawString(p2S,(maxx/2)+50,150);
-			g2d.fillOval(dx, dy, 25, 25);
-			g2d.setFont(new Font("Arial",Font.PLAIN,50));
-			g2d.drawString(winner, maxx/2, maxy/2);
+				g2d.setColor(Color.white);
+				g2d.drawLine(maxx/2, 0, maxx/2, maxy);
+				g2d.fillRect(x, y, 30, 150);
+				g2d.fillRect(ax, ay, 30, 150);
+				g2d.setFont(new Font("Arial",Font.PLAIN,200));
+				String p1S=Integer.toString(p1);
+				String p2S=Integer.toString(p2);
+				g2d.drawString(p1S,(maxx/2)-150,150);
+				g2d.drawString(p2S,(maxx/2)+50,150);
+				g2d.fillOval(dx, dy, 25, 25);
+				g2d.setFont(new Font("Arial",Font.PLAIN,50));
+				g2d.drawString(winner, maxx/2, maxy/2);
 		}
 		
 		class PlayAgainButton implements ActionListener{

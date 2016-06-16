@@ -191,7 +191,7 @@ public class DataGUI extends JComponent{
 				g2d.drawString(p2S,(maxx/2)+50,150);
 				g2d.fillOval(dx, dy, 25, 25);
 				g2d.setFont(new Font("Arial",Font.PLAIN,50));
-				g2d.drawString(winner, maxx/2, maxy/2);
+				g2d.drawString(winner, maxx/3, maxy/2);
 		}
 		
 		class StartEvent implements ActionListener{

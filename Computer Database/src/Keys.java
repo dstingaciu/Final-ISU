@@ -14,6 +14,11 @@ public class Keys implements KeyListener {
 		}
 		gui.getAXY(y);
 		if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+			try {
+				gui.finalScore();
+			} catch (IOException e1) {
+				System.out.println("Error writing final score to file");
+			}
 			System.exit(0);
 		}
 		if(e.getKeyCode()==KeyEvent.VK_P&&gui.returnGS()){

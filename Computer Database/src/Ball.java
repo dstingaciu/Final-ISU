@@ -63,7 +63,7 @@ public class Ball {
 	}
 	//Send x and y coordinates back to gui
 	public int hitDetection() throws InterruptedException{
-		Thread.sleep(3);
+		Thread.sleep(1);
 		if(dx<=0){
 			p2++;
 			gui.setP2(p2);

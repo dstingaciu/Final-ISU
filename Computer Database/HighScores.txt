@@ -1,0 +1,44 @@
+
+The final score is tied 0 to 0
+
+===========================END OF SESSION===========================
+
+Player 2 has clinched the match to make it 0 to 1
+
+The final score is 0 to 1 for player two
+
+===========================END OF SESSION===========================
+
+Player 1 has clinched the match to make it 1 to 0
+
+Player 2 has clinched the match to make it 1 to 1
+
+Player 1 has clinched the match to make it 2 to 1
+
+The final score is 2 to 1 for player one
+
+===========================END OF SESSION===========================
+
+Player 2 has clinched the match to make it 0 to 1
+
+Player 1 has clinched the match to make it 1 to 1
+
+Player 1 has clinched the match to make it 2 to 1
+
+Player 1 has clinched the match to make it 3 to 1
+
+Player 2 has clinched the match to make it 3 to 2
+
+Player 1 has clinched the match to make it 4 to 2
+
+Player 1 has clinched the match to make it 5 to 2
+
+Player 1 has clinched the match to make it 6 to 2
+
+Player 1 has clinched the match to make it 7 to 2
+
+Player 1 has clinched the match to make it 8 to 2
+
+The final score is 8 to 2 for player one
+
+===========================END OF SESSION===========================

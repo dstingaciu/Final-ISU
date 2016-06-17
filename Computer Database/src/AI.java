@@ -9,11 +9,12 @@ public class AI {
 	 * post:moves p2's paddle
 	 */
 	public void doAI()throws IOException{
-		if(gui.returnAY()+150<gui.returnDY()){
-			y++;
+		int n=(int)(Math.random()*15+0);
+		if(gui.returnAY()+(150+n)<gui.returnDY()){
+			y+=2;
 			gui.getAY(y);
-		}else if(gui.returnAY()>gui.returnDY()){
-			y--;
+		}else if(gui.returnAY()-n>gui.returnDY()){
+			y-=2;
 			gui.getAY(y);
 		}
 	}

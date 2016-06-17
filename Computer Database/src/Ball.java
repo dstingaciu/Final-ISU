@@ -121,7 +121,7 @@ public class Ball {
 	
 	public int hitDetection() throws InterruptedException, IOException{
 		gui.setDirection(direction);
-		Thread.sleep(3);
+		Thread.sleep(2);
 		if(dx<=0){
 			p2++;
 			gui.setP2(p2);
@@ -168,7 +168,7 @@ public class Ball {
 			dR();
 			gui.getDX(dx);
 			gui.getDY(dy);
-		}else if(direction==3&&(dx>=gui.returnAX()-30&&dy>gui.returnAY()&&dy<gui.returnAY()+150)){
+		}else if(direction==3&&(dx>=gui.returnAX()-35&&dy>gui.returnAY()-10&&dy<gui.returnAY()+150)){
 			direction=4;
 			uL();
 			gui.getDX(dx);

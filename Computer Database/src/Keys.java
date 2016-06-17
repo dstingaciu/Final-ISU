@@ -28,10 +28,8 @@ public class Keys implements KeyListener {
 		//if player presses game change gamestate to false and pause the game or unpause if already paused
 		if(e.getKeyCode()==KeyEvent.VK_P&&gui.returnGS()){
 			gui.setGS(false);
-			System.out.println("False");
 		}else if(e.getKeyCode()==KeyEvent.VK_P&&gui.returnGS()==false){
 			gui.setGS(true);
-			System.out.println("True");
 		}
 	}
 

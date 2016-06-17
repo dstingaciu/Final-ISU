@@ -566,14 +566,43 @@ public class DataGUI extends JComponent{
 			public void actionPerformed(ActionEvent event) {
 				if(!AIState){
 					AIState=true;
+					menu.setVisible(false);
+					menu.dispose();
 					showMenu();
 				}else{
 					AIState=false;
+					menu.setVisible(false);
+					menu.dispose();
 					showMenu();
 				}
 			}
 			
 		}
+		
+		/*ALGORITHM
+		 * Display Menu and any submenus until the user presses start to go into main game
+		 * In the menu the user can turn AI on or off or exit the game
+		 * Once in the game draw two rectangles at each top corners of the board
+		 * Draw a ball in the middle of the board
+		 * Write score
+		 * Initilize keyboard and mouse listener
+		 * Go into ball class
+		 * In the ball class initially choose a random direction to start going in
+		 * Enter loop that moves the ball until it reaches either end of the board
+		 * Go in that direction until it hits the top or bottom of the board or either paddles
+		 * If it hits any of the boundaries set then change direction of the ball and start going in that direction
+		 * Go into AI class if ai is on
+		 * Move the paddle based on the y position of the ball
+		 * return y position of paddle
+		 * redraw the ball
+		 * redraw paddles to where its dragged to by mouse and, if ai is off, the increase in y based on the amount of times arrow keys are pressed
+		 * Once a player wins go into highscores class and record it in the "PastMatches.txt" file
+		 * Play game until player exits 
+		 * Before exiting record final score in text file
+		 * 
+		 * 
+		 * 
+		 */
 		
 		
 }

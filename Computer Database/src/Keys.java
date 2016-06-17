@@ -10,9 +10,9 @@ public class Keys implements KeyListener {
 	boolean kx,ky;
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()== KeyEvent.VK_UP&&gui.returnAY()>0){
-			y-=40;
+			y-=50;
 		}else if (e.getKeyCode()== KeyEvent.VK_DOWN&&gui.returnAY()+150<=gui.returnMaxy()){
-			y+=40;
+			y+=50;
 		}
 		gui.getAXY(y);
 		if(e.getKeyCode()==KeyEvent.VK_ESCAPE){

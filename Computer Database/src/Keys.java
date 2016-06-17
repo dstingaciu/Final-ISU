@@ -9,12 +9,12 @@ public class Keys implements KeyListener {
 	int y=gui.returnAY();
 	boolean kx,ky;
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode()== KeyEvent.VK_UP&&gui.returnAY()>0){
+		if(e.getKeyCode()== KeyEvent.VK_UP&&gui.returnAY()>0&&!gui.returnAI()){
 			y-=50;
-		}else if (e.getKeyCode()== KeyEvent.VK_DOWN&&gui.returnAY()+150<=gui.returnMaxy()){
+		}else if (e.getKeyCode()== KeyEvent.VK_DOWN&&gui.returnAY()+150<=gui.returnMaxy()&&!gui.returnAI()){
 			y+=50;
 		}
-		gui.getAXY(y);
+		gui.getAY(y);
 		if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
 			try {
 				gui.finalScore();

@@ -3,8 +3,9 @@ import java.io.IOException;
 
 public class Ball {
 	
-	int dx,dy,maxx,maxy,pax,pay,pbx,pby,direction,p1=0,p2=0;
+	int dx,dy,maxx,maxy,pax,pay,pbx,pby,direction,p1=0,p2=0,aix,aiy;
 	DataGUI gui=new DataGUI();
+	AI ai=new AI();
 	public Ball(int dx,int dy,int maxx,int maxy){
 		this.dx=dx;
 		this.dy=dy;
@@ -35,6 +36,9 @@ public class Ball {
 	public int returnDY(){
 		return dy;
 	}
+	public int returnDirection(){
+		return direction;
+	}
 	
 	public void main() throws InterruptedException, IOException{
 		direction=(int)(Math.random()*4+1);
@@ -49,9 +53,13 @@ public class Ball {
 		gui.getDX(dx);
 		gui.getDY(dy);
 		int n=3;
+		gui.setDirection(direction);
 		do{
 			if(gui.returnGS()){
 				n=hitDetection();
+				if(gui.returnAI()){
+					ai.doAI();
+					}
 			}
 		}while(n>2);
 		if(n==2){
@@ -62,8 +70,9 @@ public class Ball {
 		
 	}
 	//Send x and y coordinates back to gui
-	public int hitDetection() throws InterruptedException{
-		Thread.sleep(5);
+	public int hitDetection() throws InterruptedException, IOException{
+		gui.setDirection(direction);
+		Thread.sleep(3);
 		if(dx<=0){
 			p2++;
 			gui.setP2(p2);

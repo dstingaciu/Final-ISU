@@ -19,13 +19,14 @@ public class DataGUI extends JComponent{
 		static DataGUI link = new DataGUI(); 
 		static Ball ball=new Ball(dx,dy,maxx,maxy);
 		static String winner=" ";
-		static boolean gamestate,trip=false;
+		static boolean gamestate,trip=false,AIState=false;
+		static int direction;
 		HighScores hs=new HighScores();
 
 
 		public static void main(String[]args) throws InterruptedException, IOException{
 			
-			link.showMenu();
+			link.showMenu(); //Displays Main menu
 			while(!gamestate){
 				System.out.println();
 			if(gamestate){
@@ -64,46 +65,79 @@ public class DataGUI extends JComponent{
 			
 
 		}
+		
+
+		/*
+		 * Displays main menu
+		 * pre: Gamestate must be false
+		 * Post: AIState can change and gamestate will be true
+		 */
 		public void showMenu(){
 			menu=new JFrame("Pong");
 			menu.setUndecorated(true);
 			menu.setSize(maxx, maxy);
+			
+			//Made a JPanel that will hold all the other JPanels in a border layout
 			JPanel blah=new JPanel(new BorderLayout());
 			blah.setBorder(new BevelBorder(BevelBorder.RAISED));
+			blah.setBackground(Color.black);
+			blah.setForeground(Color.black);
+			
+			
 			JLabel title=new JLabel("PONG",SwingConstants.CENTER);
 			title.setFont(new Font("Arial",Font.PLAIN,100));
-			JPanel north=new JPanel(new GridLayout(0,1,5,5));
-			north.add(title);
-			blah.add(north,BorderLayout.NORTH);
-			JPanel center = new JPanel(new GridLayout(0,1,10,10));
-			JButton start=new JButton("Start");
-			start.setFont(new Font("Arial",Font.PLAIN,50));
-			JButton exit=new JButton("Exit");
-			exit.setFont(new Font("Arial",Font.PLAIN,50));
-			JButton HTP=new JButton("How to Play");
-			HTP.setFont(new Font("Arial",Font.PLAIN,50));
 			title.setForeground(Color.white);
 			title.setBackground(Color.black);
+			
+			//JPanel that displays main title of the game
+			JPanel north=new JPanel(new GridLayout(0,1,5,5));
+			north.add(title);
+			blah.add(north,BorderLayout.NORTH);//adds title to main panel
+			north.setBackground(Color.black);
+			north.setForeground(Color.black);
+			
+			//JPanel that displays the buttons in the center of the frame
+			JPanel center = new JPanel(new GridLayout(0,1,10,10));
+			JButton start=new JButton("Start");
+			JButton exit=new JButton("Exit");
+			JButton HTP=new JButton("How to Play");	
+			JButton wantAI=new JButton("AI: "+AIState);
+
+			//sets fonts of text in each button
+			wantAI.setFont(new Font("Arial",Font.PLAIN,50));
+			exit.setFont(new Font("Arial",Font.PLAIN,50));
+			start.setFont(new Font("Arial",Font.PLAIN,50));
+			HTP.setFont(new Font("Arial",Font.PLAIN,50));
+			
+			//sets proper colours of each button
 			start.setBackground(Color.black);
 			start.setForeground(Color.white);
 			exit.setBackground(Color.black);
 			exit.setForeground(Color.white);
 			HTP.setForeground(Color.white);
 			HTP.setBackground(Color.black);
+			wantAI.setForeground(Color.white);
+			wantAI.setBackground(Color.black);
+			
+			//add each button to panel
 			center.add(start);
 			center.add(HTP);
+			center.add(wantAI);
 			center.add(exit);
+			
+			//add action listener for each button
+			wantAI.addActionListener(new WantAIEvent());
 			start.addActionListener(new StartEvent());
 			exit.addActionListener(new ExitEvent());
 			HTP.addActionListener(new HTPEvent());
 			center.setBorder(new EmptyBorder(40,70,40,70));
-			blah.add(center, BorderLayout.CENTER);
-			blah.setBackground(Color.black);
-			blah.setForeground(Color.black);
-			north.setBackground(Color.black);
-			north.setForeground(Color.black);
 			center.setBackground(Color.black);
 			center.setForeground(Color.black);
+			//adds button panel to main frame
+			blah.add(center, BorderLayout.CENTER);
+
+
+
 			
 			menu.setContentPane(blah);
 			menu.setVisible(true);
@@ -111,7 +145,15 @@ public class DataGUI extends JComponent{
 			
 		}
 		
+		/*Displays the instructions in the instruction menu
+		 * pre:none
+		 * post:none
+		 */
 		public void instructionMenu(){
+			 /*I know this could have been done in a better way, 
+			 *but I could not find that way as of yet
+			 *Looks kinda nice and neat though
+			 */
 			String a="Player 1 is on the left, using the mouse";
 			String b="Player 2 is on the right using the arrow";
 			String c="keys on the keyboard";
@@ -120,6 +162,7 @@ public class DataGUI extends JComponent{
 			String f="the player wins a point when their opponent";
 			String g="gets lets a ball through";
 			String h="Press P to pause the game";
+			String i="You can check your past match history by looking at the \"PastMatches.txt\" file";
 			JPanel blah=new JPanel(new BorderLayout());
 			JPanel inst=new JPanel();
 			JLabel aq=new JLabel(a,SwingConstants.CENTER);
@@ -130,6 +173,7 @@ public class DataGUI extends JComponent{
 			JLabel fq=new JLabel(f,SwingConstants.CENTER);
 			JLabel gq=new JLabel(g,SwingConstants.CENTER);
 			JLabel hq=new JLabel(h,SwingConstants.CENTER);
+			JLabel iq=new JLabel(i,SwingConstants.CENTER);
 			aq.setFont(new Font("Arial",Font.PLAIN,30));
 			aq.setForeground(Color.white);
 			aq.setBackground(Color.black);
@@ -154,6 +198,9 @@ public class DataGUI extends JComponent{
 			hq.setForeground(Color.white);
 			hq.setBackground(Color.black);
 			hq.setFont(new Font("Arial",Font.PLAIN,30));
+			iq.setForeground(Color.white);
+			iq.setBackground(Color.black);
+			iq.setFont(new Font("Arial",Font.PLAIN,30));
 			inst.setForeground(Color.white);
 			inst.setBackground(Color.black);
 			inst.add(aq);
@@ -164,85 +211,186 @@ public class DataGUI extends JComponent{
 			inst.add(fq);
 			inst.add(gq);
 			inst.add(hq);
+			inst.add(iq);
 			
 			blah.setBorder(new BevelBorder(BevelBorder.RAISED));
 			blah.add(inst, BorderLayout.CENTER);
+			//add buttons
 			JPanel south = new JPanel(new GridLayout(0,1,10,10));
 			JButton start=new JButton("Start");
-			start.setFont(new Font("Arial",Font.PLAIN,50));
 			JButton back=new JButton("Go Back");
+			start.setFont(new Font("Arial",Font.PLAIN,50));
 			back.setFont(new Font("Arial",Font.PLAIN,50));
+			//Set proper colour of buttons
 			start.setForeground(Color.white);
 			start.setBackground(Color.black);
 			back.setForeground(Color.white);
 			back.setBackground(Color.black);
+			
 			start.addActionListener(new StartEvent());
 			back.addActionListener(new BackEvent());
+			
 			south.add(start);
 			south.add(back);
+			
 			south.setBorder(new EmptyBorder(40,70,40,70));
 			south.setForeground(Color.white);
 			south.setBackground(Color.black);
 			blah.add(south, BorderLayout.SOUTH);
+			
 			menu.setContentPane(blah);
 			menu.revalidate();
 		}
 		
+		/*
+		 * updates y value of p1's paddle
+		 * pre:none
+		 * post:y value of p1's paddle is changed
+		 */
 		public void getXY(int b){
 			y=b;
 			link.repaint();
 		}
+		/*
+		 * Updates x value of ball
+		 * pre:none
+		 * post:x value of ball is changed
+		 */
 		public void getDX(int a){
 			dx=a;
 			link.repaint();
 		}
+		/*
+		 * returns gamestate
+		 * pre:none
+		 * post:none
+		 */
 		public boolean returnGS(){
 			return gamestate;
 
 		}
+		/*
+		 * sets gamestate to true or false
+		 * pre:none
+		 * post:sets gamestate to t or f
+		 */
 		public void setGS(boolean x){
 			gamestate=x;
 		}
+		/*
+		 * Updates y value of ball
+		 * pre:none
+		 * post:y value of ball is changed
+		 */
 		public void getDY(int b){
 			dy=b;
 			link.repaint();
 		}
-		
-		public void ballXY(int a,int b){
-			dx=a;
-			dy=b;
-			link.repaint();
+		/*
+		 * sets direction to a certain number
+		 * pre:none
+		 * post:direction value is changed
+		 */
+		public void setDirection(int n){
+			direction=n;
+		}
+		/*
+		 * Returns state of direction
+		 * pre:none
+		 * post:none
+		 */
+		public int returnDirection(){
+			return direction;
 		}
 		
+		/*
+		 * Returns max X resolution
+		 * pre:none
+		 * post:none
+		 */
 		public int returnMaxX(){
 			return maxx;
 		}
+		/*
+		 * Returns max Y resolution
+		 * pre:none
+		 * post:none
+		 */
 		public int returnMaxy(){
 			return maxy;
 		}
+		/*
+		 * Returns x position of p1's paddle
+		 * pre:none
+		 * post:none
+		 */
 		public int returnX(){
 			return x;
 		}
+		/*
+		 * Returns y position of p1's paddle
+		 * pre:none
+		 * post:none
+		 */
 		public int returnY(){
 			return y;
 		}
+		/*
+		 * Returns y position of p2's paddle
+		 * pre:none
+		 * post:none
+		 */
 		public int returnAY(){
 			return ay;
 		}
+		/*
+		 * Returns x position of p2's paddle
+		 * pre:none
+		 * post:none
+		 */
 		public int returnAX(){
 			return ax;
 		}
-		public void getAXY(int b){
+		/*
+		 * Updates y pos of p2's paddle
+		 * pre:none
+		 * post:none
+		 */
+		public void getAY(int b){
 			ay=b;
 			link.repaint();
 		}
+		/*
+		 * Updates score of p1
+		 * pre:none
+		 * post:none
+		 */
 		public void setP1(int a){
 			p1=a;
 			link.repaint();
 		}
+		/*
+		 * Updates score of p2
+		 * pre:none
+		 * post:none
+		 */
 		public void setP2(int b){
 			p2=b;
 			link.repaint();
+		}
+		/*
+		 * Updates score of p1
+		 * pre:none
+		 * post:none
+		 */
+		public int returnDX(){
+			return dx;
+		}
+		public int returnDY(){
+			return dy;
+		}
+		public boolean returnAI(){
+			return AIState;
 		}
 		public void setWinner1() throws InterruptedException, IOException{
 			winner="Player 1 Wins";
@@ -302,6 +450,11 @@ public class DataGUI extends JComponent{
 				g2d.fillOval(dx, dy, 25, 25);
 				g2d.setFont(new Font("Arial",Font.PLAIN,50));
 				g2d.drawString(winner, maxx/3, maxy/2);
+				g2d.setFont(new Font("Arial",Font.PLAIN,14));
+				g2d.drawString("Press p to pause", 0, maxy-50);
+				g2d.drawString("Press escape to exit", 0, maxy-25);
+				g2d.drawString("P1", 200, 0);
+				g2d.drawString("P2", maxx-200, 0);
 		}
 		
 		public int properScore1(){
@@ -354,6 +507,19 @@ public class DataGUI extends JComponent{
 				showMenu();
 				
 			}
+		}
+		class WantAIEvent implements ActionListener{
+
+			public void actionPerformed(ActionEvent event) {
+				if(!AIState){
+					AIState=true;
+					showMenu();
+				}else{
+					AIState=false;
+					showMenu();
+				}
+			}
+			
 		}
 		
 		

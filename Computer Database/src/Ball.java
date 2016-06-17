@@ -6,6 +6,11 @@ public class Ball {
 	int dx,dy,maxx,maxy,pax,pay,pbx,pby,direction,p1=0,p2=0,aix,aiy;
 	DataGUI gui=new DataGUI();
 	AI ai=new AI();
+	/*
+	 * gets neccessary variables for calculations
+	 * pre:none
+	 * post: assigns value to variables
+	 */
 	public Ball(int dx,int dy,int maxx,int maxy){
 		this.dx=dx;
 		this.dy=dy;
@@ -13,33 +18,72 @@ public class Ball {
 		this.maxy=maxy;
 	}
 
-	
+	/*
+	 * Moves ball to bottom right corner
+	 * pre:none
+	 * post:changes y and x post of ball
+	 */
 	public void dR(){
 		dx++;
 		dy++;
 	}
+	/*
+	 * Moves ball to bottom left corner
+	 * pre:none
+	 * post:changes y and x post of ball
+	 */
 	public void dL(){
 		dx--;
 		dy++;
 	}
+	/*
+	 * Moves ball to upper right corner
+	 * pre:none
+	 * post:changes y and x post of ball
+	 */
 	public void uR(){
 		dx++;
 		dy--;
 	}
+	/*
+	 * Moves ball to upper left corner
+	 * pre:none
+	 * post:changes y and x post of ball
+	 */
 	public void uL(){
 		dx--;
 		dy--;
 	}
+	/*
+	 * Returns x pos of ball
+	 * pre:none
+	 * post:none
+	 */
 	public int returnDX(){
 		return dx;
 	}
+	/*
+	 * Returns y pos of ball
+	 * pre:none
+	 * post:none
+	 */
 	public int returnDY(){
 		return dy;
 	}
+	/*
+	 * Returns direction
+	 * pre:none
+	 * post:none
+	 */
 	public int returnDirection(){
 		return direction;
 	}
 	
+	/*
+	 * Moves ball first time and continually goes into hit detection until one player wins
+	 * pre:Gamestate must be true
+	 * post:none
+	 */
 	public void main() throws InterruptedException, IOException{
 		direction=(int)(Math.random()*4+1);
 		if(direction==1)
@@ -69,7 +113,12 @@ public class Ball {
 		}
 		
 	}
-	//Send x and y coordinates back to gui
+	/*continually checks where ball is and where its moving based on its direction, it also detects if it hits a wall or paddle
+	 * and changes direction accordingly
+	 * pre:Gamestate must be true
+	 * post:none
+	 */
+	
 	public int hitDetection() throws InterruptedException, IOException{
 		gui.setDirection(direction);
 		Thread.sleep(3);

@@ -379,19 +379,34 @@ public class DataGUI extends JComponent{
 			link.repaint();
 		}
 		/*
-		 * Updates score of p1
+		 * Returns x pos of ball
 		 * pre:none
 		 * post:none
 		 */
 		public int returnDX(){
 			return dx;
 		}
+		/*
+		 *Returns y pos of ball
+		 *pre:none
+		 *post:none 
+		 */
 		public int returnDY(){
 			return dy;
 		}
+		/*
+		 * Returns state of AI
+		 * pre:none
+		 * post:none
+		 */
 		public boolean returnAI(){
 			return AIState;
 		}
+		/*
+		 * Displays a nice message when p1 wins
+		 * pre:none
+		 * post:none
+		 */
 		public void setWinner1() throws InterruptedException, IOException{
 			winner="Player 1 Wins";
 			writeRoundsP1();
@@ -401,6 +416,11 @@ public class DataGUI extends JComponent{
 			link.repaint();
 			ball.main();
 		}
+		/*
+		 * Displays a nice message when p2 wins
+		 * pre:none
+		 * post:none
+		 */
 		public void setWinner2() throws InterruptedException, IOException{
 			winner="Player 2 Wins";
 			writeRoundsP2();
@@ -411,16 +431,30 @@ public class DataGUI extends JComponent{
 			ball.main();
 		}
 		
+		/*
+		 * Writes to file if p1 won the round
+		 * pre:File "PastMatches.txt" must be created
+		 * post:none
+		 */
 		public void writeRoundsP1() throws IOException{
 			String P1winner="Player 1 has clinched the match to make it "+p1+" to "+p2;
 			hs.HighScore(P1winner);
 		}
-		
+		/*
+		 * Writes to file if p2 won the round
+		 * pre:File "PastMatches.txt" must be created
+		 * post:none
+		 */
 		public void writeRoundsP2() throws IOException{
 			String P2Winner="Player 2 has clinched the match to make it "+p1+" to "+p2;
 			hs.HighScore(P2Winner);
 		}
 		
+		/*
+		 * Writes to file final score before exiting
+		 * pre: File "PastMatches.txt" must be created
+		 * post: none
+		 */
 		public void finalScore() throws IOException{
 			if(p1>p2){
 				hs.HighScore("The final score is "+p1+" to "+p2+" for player one");
@@ -435,6 +469,12 @@ public class DataGUI extends JComponent{
 				
 		}
 		
+		/*
+		 * Draws the main gameboard and it updates through this method
+		 * pre:none
+		 * post:objects on screen are up to date based on values(Hopefully!)
+		 * 
+		 */
 		public void paint(Graphics g){
 			Graphics2D g2d = (Graphics2D) g;
 				g2d.setColor(Color.white);
@@ -457,6 +497,11 @@ public class DataGUI extends JComponent{
 				g2d.drawString("P2", maxx-200, 0);
 		}
 		
+		/*
+		 * Makes sure that the score is outputted properly on screen by changing x pos of score when it gets higher than 10
+		 * pre:none
+		 * post:none
+		 */
 		public int properScore1(){
 			if(p1>=10){
 				scorePosX1=(maxx/2)-300;
@@ -466,6 +511,11 @@ public class DataGUI extends JComponent{
 			return scorePosX1;
 			
 		}
+		/*
+		 * Makes sure that the score is outputted properly on screen by changing x pos of score when it gets higher than 10
+		 * pre:none
+		 * post:none
+		 */
 		public int properScore2(){
 			if(p2>=10){
 				scorePosX2=(maxx/2)+100;
@@ -476,6 +526,7 @@ public class DataGUI extends JComponent{
 			
 		}
 		
+		//actionlistener for start button
 		class StartEvent implements ActionListener{
 
 			public void actionPerformed(ActionEvent event) {
@@ -484,7 +535,7 @@ public class DataGUI extends JComponent{
 			}
 			
 		}
-		
+		//actionlistener for exit button
 		class ExitEvent implements ActionListener{
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
@@ -492,7 +543,7 @@ public class DataGUI extends JComponent{
 			}
 			
 		}
-		
+		//actionlistener for how to play button
 		class HTPEvent implements ActionListener{
 
 			public void actionPerformed(ActionEvent event) {
@@ -501,6 +552,7 @@ public class DataGUI extends JComponent{
 			}
 			
 		}
+		//actionlistener for back button
 		class BackEvent implements ActionListener{
 
 			public void actionPerformed(ActionEvent event) {
@@ -508,6 +560,7 @@ public class DataGUI extends JComponent{
 				
 			}
 		}
+		//actionlistener for ai button
 		class WantAIEvent implements ActionListener{
 
 			public void actionPerformed(ActionEvent event) {

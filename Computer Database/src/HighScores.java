@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+//simply prints play by play of each match(Game was going to be something else, hence name of class "HighScores"
 public class HighScores {
 	int lines=0;
 	public void HighScore(String addon) throws IOException{
